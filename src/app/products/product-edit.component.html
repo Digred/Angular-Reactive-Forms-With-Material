@@ -1,0 +1,69 @@
+<div class="product-page">
+  <div class="container">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row><span>{{ pageTitle }}</span></mat-toolbar-row>
+    </mat-toolbar>
+    <div class="body">
+      <form novalidate (ngSubmit)="saveProduct()" [formGroup]="productForm">
+        <!--Product Name-->
+        <mat-form-field>
+          <input formControlName="productName"
+                 id="productNameId"
+                 matInput
+                 placeholder="Product Name (Required)"
+                 required
+                 type="text">
+          <mat-error>{{ displayMessage.productName }}</mat-error>
+        </mat-form-field>
+        <!--Product Code-->
+        <mat-form-field>
+          <input formControlName="productCode"
+                 id="productCodeId"
+                 matInput
+                 placeholder="Product Code (Required)"
+                 required
+                 type="text">
+          <mat-error>{{ displayMessage.productCode }}</mat-error>
+        </mat-form-field>
+        <!--Product Rating-->
+        <mat-form-field>
+          <input formControlName="starRating"
+                 id="starRatingId"
+                 matInput
+                 placeholder="Rating (1-5)"
+                 type="text">
+          <mat-error>{{ displayMessage.starRating }}</mat-error>
+        </mat-form-field>
+        <!--Product Tags-->
+        <div class="tags" formArrayName="tags">
+          <div class="tag" *ngFor="let tag of tags.controls; let i = index">
+            <mat-form-field>
+              <input [formControlName]="i"
+                     [id]="i"
+                     matInput
+                     placeholder="Tag"
+                     type="text"/>
+            </mat-form-field>
+            <button (click)="deleteTag(i)" color="warn" mat-flat-button type="button">Delete Tag</button>
+          </div>
+          <button (click)="addTag()" color="primary" mat-flat-button type="button">Add Tag</button>
+        </div>
+        <!--Product Description-->
+        <mat-form-field>
+          <textarea formControlName="description"
+                    id="descriptionId"
+                    matInput
+                    placeholder="Description"
+                    rows="3"></textarea>
+          <mat-error>{{ displayMessage.description }}</mat-error>
+        </mat-form-field>
+        <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="form-controls">
+          <button [disabled]="!productForm.valid" color="primary" mat-flat-button type="submit">Save</button>
+          <button [routerLink]="['/products']" color="accent" mat-flat-button type="button">Cancel</button>
+          <button (click)="deleteProduct()" color="warn" mat-flat-button type="button">Delete</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

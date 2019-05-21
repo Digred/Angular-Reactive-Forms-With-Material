@@ -1,0 +1,52 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav
+               (keydown.escape)="sidenav.toggle()"
+               mode="over"
+               position="end">
+    <mat-toolbar color="primary">
+      <span><a href="/" class="sidenav-header">{{ appTitle }}</a></span>
+    </mat-toolbar>
+    <nav class="sidenav-menu">
+      <div class="sidenav-body">
+        <a (click)="sidenav.toggle()"
+           [routerLink]="['/welcome']"
+           routerLinkActive="active">Home</a>
+        <a (click)="sidenav.toggle()"
+           [routerLink]="['/first-part']"
+           routerLinkActive="active">First part of the course</a>
+        <a (click)="sidenav.toggle()"
+           [routerLinkActiveOptions]="{ exact: true }"
+           [routerLink]="['/products']"
+           routerLinkActive="active">Product List</a>
+        <a (click)="sidenav.toggle()"
+           [routerLinkActiveOptions]="{ exact: true }"
+           [routerLink]="['/products/0/edit']"
+           routerLinkActive="active">Add Product</a>
+      </div>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="app-content">
+      <header class="app-header">
+        <mat-toolbar color="primary">
+          <mat-toolbar-row>
+            <span class="header-logo">{{ appTitle }}</span>
+            <span class="spacer"></span>
+            <button (click)="sidenav.toggle()"
+                    class="sidenav-caller mdi mdi-menu"
+                    mat-icon-button></button>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      </header>
+      <main class="app-main"><router-outlet></router-outlet></main>
+      <footer class="app-footer">
+        <mat-toolbar color="primary">
+          <mat-toolbar-row>
+            <span class="footer-logo">{{ appTitle }}</span>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      </footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

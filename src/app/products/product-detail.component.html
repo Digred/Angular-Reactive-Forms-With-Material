@@ -1,0 +1,64 @@
+<div class="product-page">
+  <div class="container" *ngIf="product">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row><span>{{ pageTitle + ': ' + product.productName }}</span></mat-toolbar-row>
+    </mat-toolbar>
+    <div class="body">
+      <div class="properties">
+        <div class="image"
+             *ngIf="product.imageUrl">
+          <img [src]="product.imageUrl"
+               [style.height.px]="150"
+               [style.margin.px]="2"
+               [title]="product.productName">
+        </div>
+        <mat-list>
+          <mat-list-item role="listitem" class="property">
+            <span class="name">Name:</span>
+            <span class="spacer"></span>
+            <span class="value">{{ product.productName }}</span>
+          </mat-list-item>
+          <mat-list-item role="listitem" class="property">
+            <span class="name">Code:</span>
+            <span class="spacer"></span>
+            <span class="value">{{ product.productCode }}</span>
+          </mat-list-item>
+          <mat-list-item role="listitem" class="property">
+            <span class="name">Description:</span>
+            <span class="spacer"></span>
+            <span class="value">{{ product.description }}</span>
+          </mat-list-item>
+          <mat-list-item role="listitem" class="property">
+            <span class="name">Availability:</span>
+            <span class="spacer"></span>
+            <span class="value">{{ product.releaseDate }}</span>
+          </mat-list-item>
+          <mat-list-item role="listitem" class="property">
+            <span class="name">Price:</span>
+            <span class="spacer"></span>
+            <span class="value">{{ product.price|currency:"USD":"symbol" }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span class="name">5 Star Rating:</span>
+            <span class="spacer"></span>
+            <span class="value"><pm-star [rating]="product.starRating"></pm-star></span>
+          </mat-list-item>
+          <mat-list-item role="listitem" class="property">
+            <span class="name">Tags:</span>
+            <span class="spacer"></span>
+            <span class="value">{{ product.tags }}</span>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+    <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="controls">
+      <button (click)="onBack()"
+              color="primary"
+              mat-flat-button><i class="mdi mdi-chevron-left"></i>Back</button>
+      <button [routerLink]="['/products', product.id, 'edit']"
+              color="accent"
+              mat-flat-button>Edit</button>
+    </div>
+  </div>
+</div>

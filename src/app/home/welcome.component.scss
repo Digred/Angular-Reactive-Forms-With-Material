@@ -1,0 +1,57 @@
+@import '~@angular/material/theming';
+
+$main-padding: 16px;
+
+.welcome-page {
+  padding: $main-padding;
+
+  .container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 2px;
+    overflow: hidden;
+
+    @include mat-elevation(2);
+  }
+
+  .body {
+    padding: $main-padding;
+  }
+  .image {
+
+    img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: scale-down;
+      margin-bottom: 50px;
+    }
+  }
+
+  .author-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+    font-size: 18px;
+
+    .title {
+      margin-bottom: $main-padding / 2;
+    }
+    .name {
+      font-size: 26px;
+      margin-bottom: $main-padding;
+    }
+    .twitter {
+      margin-bottom: $main-padding / 2;
+    }
+    .blog {
+      margin-bottom: $main-padding / 2;
+
+      a {
+        color: #337AB7;
+        text-decoration: none;
+      }
+    }
+  }
+}

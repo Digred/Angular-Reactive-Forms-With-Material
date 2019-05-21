@@ -1,0 +1,201 @@
+<div class="customer-page">
+  <div class="container">
+    <div class="customer-header">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>Sign Up!</mat-toolbar-row>
+      </mat-toolbar>
+    </div>
+    <div class="customer-body">
+      <form novalidate
+            [formGroup]="customerForm"
+            (ngSubmit)="save()"
+            class="customer-form">
+        <mat-form-field>
+          <input class="form-control"
+                 id="firstNameId"
+                 matInput
+                 type="text"
+                 placeholder="First Name (required)"
+                 formControlName="firstName"
+                 [ngClass]="{'is-invalid': (customerForm.get('firstName').touched || customerForm.get('firstName').dirty) && !customerForm.get('firstName').valid }" />
+          <mat-error *ngIf="customerForm.get('firstName').errors?.required">Please enter your first name.</mat-error>
+          <mat-error *ngIf="customerForm.get('firstName').errors?.minlength">The first name must be longer than 3 characters.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input class="form-control"
+                 id="lastNameId"
+                 matInput
+                 type="text"
+                 placeholder="Last Name (required)"
+                 formControlName="lastName"
+                 [ngClass]="{'is-invalid': (customerForm.get('lastName').touched || customerForm.get('lastName').dirty) && !customerForm.get('lastName').valid }" />
+          <mat-error *ngIf="customerForm.get('lastName').errors?.required">Please enter your last name.</mat-error>
+          <mat-error *ngIf="customerForm.get('lastName').errors?.maxlength">The last name must be less than 50 characters.</mat-error>
+        </mat-form-field>
+        <div class="form-group" formGroupName="emailGroup">
+          <mat-form-field>
+            <input id="emailId"
+                   matInput
+                   type="email"
+                   placeholder="Email (required)"
+                   formControlName="email">
+            <mat-error>{{ emailMessage }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="email"
+                   formControlName="confirmEmail"
+                   id="confirmEmailId"
+                   placeholder="Confirm Email"
+                   [ngClass]="{ 'super-invalid': customerForm.get('emailGroup').errors }"
+                   matInput>
+            <mat-error *ngIf="customerForm.get('emailGroup.confirmEmail').errors?.required">Please confirm your email</mat-error>
+            <mat-error *ngIf="customerForm.get('emailGroup').errors?.match">Email do not match</mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field>
+          <input class="form-control"
+                 id="phoneId"
+                 matInput
+                 type="tel"
+                 placeholder="Phone Number (required)"
+                 formControlName="phone"
+                 [ngClass]="{'is-invalid': !customerForm.get('phone').valid }" />
+          <mat-error *ngIf="customerForm.get('phone').errors?.required">Please enter your phone number.</mat-error>
+        </mat-form-field>
+
+        <mat-radio-group
+          formControlName="notification"
+          aria-label="Notification">
+          <mat-radio-button
+            value="text">Text</mat-radio-button>
+          <mat-radio-button
+            value="email">Email</mat-radio-button>
+        </mat-radio-group>
+
+        <mat-form-field>
+          <input type="number"
+                 id="ratingId"
+                 formControlName="rating"
+                 [ngClass]="{
+                 'is-invalid': (customerForm.get('rating').touched || customerForm.get('rating').dirty) && !customerForm.get('rating').valid
+                 }"
+                 placeholder="Rating"
+                 matInput>
+          <mat-error *ngIf="customerForm.get('rating').errors?.range">
+            Please rate your experience from 1 to 5
+          </mat-error>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="sendCatalog"
+                      id="sendCatalogId">
+          Send me your catalog
+        </mat-checkbox>
+
+        <div class="expandable" *ngIf="customerForm.get('sendCatalog').value">
+          <div formArrayName="addressGroup" *ngFor="let address of addressGroups.controls; let i=index" >
+            <div [formGroupName]="i">
+              <mat-radio-group
+                aria-label="Address Type"
+                formControlName="addressType"
+                id="{{ 'addressTypeId' + i }}">
+                <mat-radio-button
+                  value="home">Home</mat-radio-button>
+                <mat-radio-button
+                  value="work">Work</mat-radio-button>
+                <mat-radio-button
+                  value="other">Other</mat-radio-button>
+              </mat-radio-group>
+              <mat-form-field>
+                <input formControlName="street1"
+                       id="{{ 'street1Id' + i }}"
+                       matInput
+                       placeholder="Street address"
+                       type="text">
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="street2"
+                       id="{{ 'street2Id' + i }}"
+                       matInput
+                       placeholder="Street address (second line)"
+                       type="text">
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="city"
+                       id="{{ 'cityId' + i }}"
+                       matInput
+                       placeholder="City"
+                       type="text">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Select a State</mat-label>
+                <mat-select
+                  formControlName="state"
+                  id="{{ 'stateId' + i }}">
+                  <mat-option value="AL">Alabama</mat-option>
+                  <mat-option value="AK">Alaska</mat-option>
+                  <mat-option value="AZ">Arizona</mat-option>
+                  <mat-option value="AR">Arkansas</mat-option>
+                  <mat-option value="CA">California</mat-option>
+                  <mat-option value="CO">Colorado</mat-option>
+                  <mat-option value="WI">Wisconsin</mat-option>
+                  <mat-option value="WY">Wyoming</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input formControlName="zip"
+                       id="{{ 'zipId' + i }}"
+                       matInput
+                       placeholder="Zip Code"
+                       type="number">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="form-buttons">
+            <button mat-flat-button
+                    type="button"
+                    [disabled]="!addressGroups.valid || addressGroups.length >= 3"
+                    (click)="addAddress()"
+                    color="accent">Add Another Address</button>
+          </div>
+        </div>
+
+        <div class="form-buttons">
+          <button mat-flat-button
+                  type="button"
+                  (click)="populateTestData()"
+                  color="accent">Test Data</button>
+          <button mat-flat-button
+                  color="primary"
+                  [title]="customerForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!customerForm.valid"
+                  type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+    <div class="customer-footer">
+      <div class="status">
+        <div class="name">Dirty</div>
+        <div class="value">{{ customerForm.dirty }}</div>
+      </div>
+      <div class="status">
+        <div class="name">Touched</div>
+        <div class="value">{{ customerForm.touched }}</div>
+      </div>
+      <div class="status">
+        <div class="name">Valid</div>
+        <div class="value">{{ customerForm.valid }}</div>
+      </div>
+      <div class="status">
+        <div class="name">Value</div>
+        <div class="value">{{ customerForm.value | json }}</div>
+      </div>
+      <div class="status">
+        <div class="name">Street</div>
+        <div class="value">{{ addressGroups.get('0.street1')?.value }}</div>
+      </div>
+    </div>
+  </div>
+</div>

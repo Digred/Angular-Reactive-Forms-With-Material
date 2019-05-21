@@ -1,0 +1,54 @@
+@import '~@angular/material/theming';
+
+$main-padding: 16px;
+
+.product-page {
+  padding: $main-padding;
+
+  .container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 2px;
+    overflow: hidden;
+
+    @include mat-elevation(2);
+  }
+
+  .body {
+    padding: $main-padding;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  .form-controls {
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr);
+    grid-gap: $main-padding / 2;
+  }
+
+  .tags {
+    margin-bottom: $main-padding;
+  }
+
+  .tag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    mat-form-field {
+      flex: 1;
+    }
+
+    button {
+      margin-left: $main-padding / 2;
+    }
+  }
+
+  .error {
+    color: darkred;
+  }
+
+}

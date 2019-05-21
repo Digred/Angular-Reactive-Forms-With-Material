@@ -1,0 +1,47 @@
+@import '~@angular/material/theming';
+
+thead {
+  color: #337AB7;
+}
+$main-padding: 16px;
+
+.product-page {
+  padding: $main-padding;
+
+  .container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 2px;
+    overflow: hidden;
+
+    @include mat-elevation(2);
+  }
+
+  .body {
+    padding: $main-padding;
+  }
+
+  .filtered {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    span {
+      margin-left: $main-padding;
+    }
+  }
+
+  .buttons {
+    margin-bottom: $main-padding;
+  }
+
+  table {
+    width: 100%;
+
+    a {
+      color: #337AB7;
+      text-decoration: none;
+    }
+  }
+}

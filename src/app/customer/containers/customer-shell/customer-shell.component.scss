@@ -1,0 +1,70 @@
+@import '~@angular/material/theming';
+
+$main-padding: 16px;
+
+.customer-page {
+  padding: $main-padding 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    margin: 0 $main-padding;
+    max-width: 400px;
+    border-radius: 2px;
+    overflow: hidden;
+
+    @include mat-elevation(2);
+  }
+
+  .customer-body {
+    padding: $main-padding;
+
+    form {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .expandable {
+      width: 100%;
+    }
+
+    mat-radio-group {
+      padding: $main-padding / 2 0;
+      width: 100%;
+      display: grid;
+      grid-template: 1fr / repeat(3, 1fr);
+      grid-gap: $main-padding / 2;
+    }
+
+    .form-buttons {
+      width: 100%;
+      display: grid;
+      grid-template: 1fr / repeat(2, 1fr);
+      grid-gap: $main-padding / 2;
+      margin-top: $main-padding;
+    }
+  }
+
+  .customer-footer {
+    padding: $main-padding;
+    display: grid;
+    grid-template: 1fr / 1fr;
+    grid-gap: $main-padding / 2;
+
+    .status {
+      display: grid;
+      grid-template: 1fr / repeat(2, 1fr);
+      grid-gap: $main-padding / 2;
+    }
+    .name {}
+    .value {}
+  }
+}
